@@ -24,9 +24,7 @@ function hhh=hline(y,in1,in2)
 %
 % draws three lines with the appropriate labels and colors.
 % 
-% By Brandon Kuczenski for Kensington Labs.
-% brandon_kuczenski@kensingtonlabs.com
-% 8 November 2001
+
 
 if length(y)>1  % vector input
     for I=1:length(y)
