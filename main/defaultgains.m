@@ -1,0 +1,31 @@
+%% Default gains
+
+default_gains.pos_x_kp = 1;
+default_gains.pos_x_ki = 0;
+default_gains.pos_y_kp = 1;
+default_gains.pos_y_ki = 0;
+default_gains.pos_z_kp = 0.4;
+default_gains.pos_z_ki = 0;
+default_gains.vel_x_kp = 1;
+default_gains.vel_x_ki = 0.03;
+default_gains.vel_y_kp = 1;
+default_gains.vel_y_ki = 0.03;
+default_gains.vel_z_kp = 0.8;
+default_gains.vel_z_ki = 0.04;
+default_gains.yaw_kp = 1;
+default_gains.yaw_ki = 0.1;
+
+smoothgains.pos_x_kp = 1.8;
+smoothgains.pos_x_ki = 0.03;
+smoothgains.pos_y_kp = 1.8;
+smoothgains.pos_y_ki = 0.03;
+smoothgains.pos_z_kp = 0.3;
+smoothgains.pos_z_ki = 0.01;
+smoothgains.vel_x_kp = 1.1;
+smoothgains.vel_x_ki = 0.01;
+smoothgains.vel_y_kp = 1.1;
+smoothgains.vel_y_ki = 0.01;
+smoothgains.vel_z_kp = 2.1;
+smoothgains.vel_z_ki = 2.0;
+smoothgains.yaw_kp = 1;
+smoothgains.yaw_ki = 0.1;
