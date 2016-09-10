@@ -18,17 +18,22 @@ fs = round(length(gyro)/(time(end)-time(1))); %sampling frequency
 time = [0:1/fs:((length(gyro)-1)/fs)];
 gdtimer = 0;
 for i = 1:length(time)
-    if  gyro(i) > 1.4 && accel(i) < -1.3 && throttle(i) < .6
+    if  gyro(i) > 1.4 && accel(i) < -1.3 && throttle(i) < .62
         gdtimer(i) = time(i);
     end
     
 end
+
 gdtime = gdtimer(gdtimer ~= 0);
-gdtime = gdtime(1) + 1;
- 
-figure;
-plot(time,[accel gyro throttle velocity]);
-grid on;
-xlabel('time (sec)');
-legend('accel','gyro','throttle','velocity z','Location','best');
-vline(gdtime,'r','gd');
+if isempty(gdtime)
+    fprintf('ground detector empty\n')
+else
+    gdtime = gdtime(1) + .5;
+
+    figure;
+    plot(time,[accel gyro throttle velocity]);
+    grid on;
+    xlabel('time (sec)');
+    legend('accel','gyro','throttle','velocity z','Location','best');
+    vline(gdtime,'r','gd');
+end
