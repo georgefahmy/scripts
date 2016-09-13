@@ -9,8 +9,7 @@
 %determing the quality of flight, as well as display plots of important
 %flight data.
 %
-%the scripts for this function are located in
-%bits/utils/mscripts/george_scripts
+
 ccc;
 loaddata;
 
@@ -65,9 +64,3 @@ end
 clear data flight_* ;
 save ([pathname '/_workspace']);
 done = fprintf('Saved workspace\n');
-
-        
-%% Time Log
-
-    timelog;
-    

@@ -1,24 +1,21 @@
 # scripts
 
-###########
-This document is issued to explain how to use the Kespry matlab analysis 
-scripts. Requirements for using the scripts require that the user has the 
-argus build on their computer and that it has the george_scripts folder in 
-the utils folder.
-###########
+This readme will explain how to set up matlab paths and scripts for use with your own computer.
+
+Make sure to git pull the latest from the repo.
 
 First step to using the scripts is to set the correct paths to the 
 functions/scripts.
 Select 'HOME' from the top tab in the matlab window. 
 Then select 'Set Path'.
 This will open up a window with a list of the paths used by matlab.
-Select 'Add Folder' and choose: 
+Select 'Add Folder' and choose the folder that you cloned the repo in.
 
-'~/<path to bits>/bits/utils/mscripts/george_scripts'
+For example:
 
-The additional folder needed is:
+'~/Documents/projects/scripts/src/'
+'~/Documents/projects/scripts/functions/'
 
-'~/<path to bits>/bits/utils/mscripts/george_scripts/functions'
 
 Once these two folders are added in the window, select 'Save' and 'Close'.
 
@@ -35,20 +32,9 @@ Open <loaddata.m> and change this line
 
 <startdir = '/Users/georgeKespry/Documents/Projects/Matlab/Data/'>
 
-to "startdir = '~/<mypath_to_data>'" and set it to your data directory.
-the last step is to erase the last 4 lines of the <flight.m> script
+to "startdir = '~/<mypath_to_my_data_folder>'" and set it to your data directory. 
 
-delete: 
-
-{
-## Time Log
-
-timelog;
-}    
-
-Once this line is changed, you can run <flight.m> and it will prompt you 
-to select the dataset. Choose the dataset you want to analyze and the 
-script will load it into the workspace.
+Once this is done, then you are good to go!
 
 ##########
 plotting data
