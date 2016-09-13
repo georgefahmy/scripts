@@ -39,9 +39,6 @@ for i = 1:length(header)
    if ~isempty(regexp(header{i,1},'recv_timestamp','ONCE')) && ~isempty(data.(cell2mat(header(i))))
        data.(cell2mat(header(i))) = data.(cell2mat(header(i))) - data.(cell2mat(header(i)))(1);
    end
-%    if ~isempty(regexp(header{i,1},'timestamp','ONCE')) && ~isempty(data.(cell2mat(header(i))))
-%        data.(cell2mat(header(i))) = data.(cell2mat(header(i))) - data.(cell2mat(header(i)))(1);
-%    end
    
 end
 
