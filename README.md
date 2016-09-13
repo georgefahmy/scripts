@@ -112,3 +112,11 @@ embedded data.
 ##########
 This is the basic intro to using the matlab scripts. The uses are endless, 
 however this is a good place to start.
+
+If you want to create your own scripts, create a branch off of master:
+
+git checkout -b <your_initials/my_branch_name>
+
+once you do that you can push the branch to the repo:
+
+git push -u <branch> 
