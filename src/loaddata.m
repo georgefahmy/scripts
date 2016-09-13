@@ -38,7 +38,7 @@ elseif length(pathname(temp(end)+1:end)) == 5
 else
     flightid = '';
 end
-filestruct = dir(pathname);
+filestruct = dir(pathname); 
 files = {'Names'};
 j = 1;
 for i = 1:length(filestruct)

@@ -33,13 +33,9 @@ end
 raw = textscan(fid,[str '%[^\n\r]'],'HeaderLines',1,'Delimiter','\t');
 
 for i = 1:length(header)
-    
-   if mean(diff(cell2mat(raw(i)))) == 0 && max(diff(cell2mat(raw(i)))) == 0
-       %data.(cell2mat(header(i))) = mean(cell2mat(raw(i)));
+   
        data.(cell2mat(header(i))) = cell2mat(raw(i));
-   else
-       data.(cell2mat(header(i))) = cell2mat(raw(i));
-   end
+  
    if ~isempty(regexp(header{i,1},'recv_timestamp','ONCE')) && ~isempty(data.(cell2mat(header(i))))
        data.(cell2mat(header(i))) = data.(cell2mat(header(i))) - data.(cell2mat(header(i)))(1);
    end
