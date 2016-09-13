@@ -45,7 +45,7 @@ end
 %%%%%%%%%%
 gd = 0;
 for i = length(time)-100*100:length(time)
-    if abs(velocity(i)) < .1 && throttle(i) < .53
+    if abs(velocity(i)) < .1 && throttle(i) < .55
         gd(i) = time(i);
         
         detect = 1;

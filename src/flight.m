@@ -9,7 +9,6 @@
 %determing the quality of flight, as well as display plots of important
 %flight data.
 %
-
 ccc;
 loaddata;
 
