@@ -63,6 +63,7 @@ shutoff2 = gd(1); % 10 milisecond wait
 for i = 1:length(time)
     if gyro(i) > 1.3 && accel(i) < -1.3
         bump(i) = time(i);
+        break
     else
         bump(i) = 0;
     end
@@ -70,7 +71,7 @@ end
 bump = bump(bump~=0);
 
 if exist('bump','var') && ~isempty(bump)
-    bump_timer = bump(1);
+    bump_timer = bump;
     timer_end = bump_timer + 1;
     for i = find(time == bump_timer):find(time == bump_timer + 1)
         if abs(velocity(i)) < .5 && throttle(i) < .65
