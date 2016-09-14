@@ -85,4 +85,9 @@ close all;
 %% Playback    
     %this is disabled unless manually chosen to play it.
     pathplayback;
+    
+%% Grounddetector
+
+    grounddetector(emb_sensor,emb_command,emb_state);
+    
 

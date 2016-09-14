@@ -1,3 +1,4 @@
+function grounddetector(emb_sensor,emb_command,emb_state)
 %% grounddetector
 % the ground detector function uses the 4 variables above to check to see
 % if the drone landed on the ground or not.
@@ -10,7 +11,7 @@ ttime = [0:1/100:(length(throttle)-1)/100]';
 velocity = emb_state.velocity_z;
 vtime = [0:1/100:(length(velocity)-1)/100]';
 
-accel = movingmean(accel,6);
+accel = movingmean(accel,4);
 gyro = movvar(gyro,10,1);
 
 vector_lengths = cellfun(@(x) length(x),{accel gyro throttle velocity});
@@ -63,18 +64,19 @@ shutoff2 = gd(1); % 10 milisecond wait
 for i = 1:length(time)
     if gyro(i) > 1.3 && accel(i) < -1.3
         bump(i) = time(i);
-        break
+        
     else
         bump(i) = 0;
     end
 end
 bump = bump(bump~=0);
+bump = bump(end);
 
 if exist('bump','var') && ~isempty(bump)
     bump_timer = bump;
-    timer_end = bump_timer + 1;
-    for i = find(time == bump_timer):find(time == bump_timer + 1)
-        if abs(velocity(i)) < .5 && throttle(i) < .65
+    timer_end = bump_timer + 3;
+    for i = find(time == bump_timer):find(time == timer_end)
+        if abs(velocity(i)) < .6 && throttle(i) < .66
             shutoff(i) = time(i);
         else
             shutoff(i) = 0;
@@ -84,10 +86,16 @@ if exist('bump','var') && ~isempty(bump)
     shutoff = shutoff(shutoff~=0);
     if ~isempty(shutoff)
         shutoff = shutoff(1);
-    else
-        shutoff = shutoff2;
     end
+        
 end
+if ~exist('shutoff','var') && ~exist('bump_timer','var')
+    shutoff = shutoff2;
+end
+if isempty(shutoff)
+    shutoff = shutoff2;
+end
+
 %%%%%%%%%%
     
     figure;
@@ -95,10 +103,11 @@ end
     grid on;
     xlabel('time (sec)');
     legend('accel','gyro','throttle','velocity z','Location','best');
-    if exist('bump','var')
+    if exist('bump_timer','var')
         vline(bump_timer,'g','bump');
     end
     vline([shutoff shutoff2],{'r','b'},{'shutoff','shutoff 2'});
     
-    
+ clear accel gyro velocity throttle bump bump_timer shutoff shutoff2   
 
+end
