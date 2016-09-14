@@ -49,16 +49,12 @@ gd = 0;
 for i = length(time)-100*100:length(time)
     if abs(velocity(i)) < .2 && throttle(i) < .55
         gd(i) = time(i);
-        
-        detect = 1;
     else
         gd(i) = 0;
     end 
 end
 gd = gd(gd~=0);
 shutoff2 = gd(1); % 10 milisecond wait
-%%%%%%%%%%
-
 %%%%%%%%%%
 %bump detector
 for i = 1:length(time)
@@ -108,6 +104,4 @@ end
     end
     vline([shutoff shutoff2],{'r','b'},{'shutoff','shutoff 2'});
     
- clear accel gyro velocity throttle bump bump_timer shutoff shutoff2   
-
 end
