@@ -13,7 +13,7 @@ Select 'Add Folder' and choose the folder that you cloned the repo in.
 
 For example:
 
-'~/Documents/projects/scripts/src/'
+'~/Documents/projects/scripts/main/'
 '~/Documents/projects/scripts/functions/'
 
 
@@ -119,4 +119,5 @@ git checkout -b <your_initials/my_branch_name>
 
 once you do that you can push the branch to the repo:
 
-git push -u <branch> 
+git push -u <origin/branch> 
+
