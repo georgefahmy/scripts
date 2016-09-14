@@ -12,7 +12,11 @@ velocity = emb_state.velocity_z;
 vtime = [0:1/100:(length(velocity)-1)/100]';
 
 accel = movingmean(accel,4);
-gyro = movvar(gyro,10,1);
+if exist('movvar') == 5
+    gyro = movvar(gyro,10,1);
+else
+    gyro = movingmean(gyro,5);
+end
 
 vector_lengths = cellfun(@(x) length(x),{accel gyro throttle velocity});
 time = [0:1/100:(min(vector_lengths)-1)/100]';
