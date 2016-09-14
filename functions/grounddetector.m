@@ -61,7 +61,7 @@ gd = gd(gd~=0);
 shutoff2 = gd(1); % 10 milisecond wait
 %%%%%%%%%%
 %bump detector
-for i = 1:length(time)
+for i = find(time == time(end)-120):find(time == time(end))
     if gyro(i) > 1.3 && accel(i) < -1.3
         bump(i) = time(i);
         
