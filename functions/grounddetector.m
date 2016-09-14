@@ -43,9 +43,10 @@ switch min(vector_lengths)
 end
 
 %%%%%%%%%%
+%throttle/velocity detection
 gd = 0;
 for i = length(time)-100*100:length(time)
-    if abs(velocity(i)) < .1 && throttle(i) < .55
+    if abs(velocity(i)) < .2 && throttle(i) < .55
         gd(i) = time(i);
         
         detect = 1;
@@ -54,18 +55,49 @@ for i = length(time)-100*100:length(time)
     end 
 end
 gd = gd(gd~=0);
-gd = gd(10); % 10 milisecond wait
+shutoff2 = gd(1); % 10 milisecond wait
 %%%%%%%%%%
 
+%%%%%%%%%%
+%bump detector
 for i = 1:length(time)
-    
+    if gyro(i) > 1.3 && accel(i) < -1.3
+        bump(i) = time(i);
+    else
+        bump(i) = 0;
+    end
 end
+bump = bump(bump~=0);
+
+if exist('bump','var') && ~isempty(bump)
+    bump_timer = bump(1);
+    timer_end = bump_timer + 1;
+    for i = find(time == bump_timer):find(time == bump_timer + 1)
+        if abs(velocity(i)) < .5 && throttle(i) < .65
+            shutoff(i) = time(i);
+        else
+            shutoff(i) = 0;
+        end
+    end
+    
+    shutoff = shutoff(shutoff~=0);
+    if ~isempty(shutoff)
+        shutoff = shutoff(1);
+    else
+        shutoff = shutoff2;
+    end
+end
+%%%%%%%%%%
     
     figure;
     plot(atime,accel,gtime,gyro,ttime,throttle,vtime,velocity);
     grid on;
     xlabel('time (sec)');
     legend('accel','gyro','throttle','velocity z','Location','best');
-    vline(gd,'r','gd');
+    if exist('bump','var')
+        vline(bump_timer,'g','bump');
+    end
+    vline([shutoff shutoff2],{'r','b'},{'shutoff','shutoff 2'});
+    
     
 
