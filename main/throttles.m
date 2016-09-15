@@ -1,7 +1,21 @@
 %% Throttles
-if exist('emb_controller','var') && ~isempty(emb_controller.timestamp)
-    if length(emb_controller.timestamp) ~= length(emb_controller.throttle_w)
-        emb_controller.timestamp = emb_controller.timestamp(1:2:end-1);
+if exist('emb_controller','var') && exist('emb_command','var') && ~isempty(emb_controller.recv_timestamp)
+    
+    vector_lengths = cellfun(@(x) length(x),{emb_command.throttle emb_controller.throttle_x});
+    time = [0:1/100:(min(vector_lengths)-1)/100]';
+
+    switch min(vector_lengths)
+        case vector_lengths(1)
+            [emb_controller.recv_timestamp,emb_controller.throttle_x] = interpOp(emb_controller.recv_timestamp,emb_controller.throttle_x,emb_command.recv_timestamp,emb_command.throttle,'');
+            [emb_controller.recv_timestamp,emb_controller.throttle_y] = interpOp(emb_controller.recv_timestamp,emb_controller.throttle_y,emb_command.recv_timestamp,emb_command.throttle,'');
+            [emb_controller.recv_timestamp,emb_controller.throttle_z] = interpOp(emb_controller.recv_timestamp,emb_controller.throttle_z,emb_command.recv_timestamp,emb_command.throttle,'');
+            [emb_controller.recv_timestamp,emb_controller.throttle_w] = interpOp(emb_controller.recv_timestamp,emb_controller.throttle_w,emb_command.recv_timestamp,emb_command.throttle,'');
+
+
+        case vector_lengths(2)
+            [emb_command.recv_timestamp,emb_command.throttle] = interpOp(emb_command.recv_timestamp,emb_command.throttle,emb_controller.recv_timestamp,emb_controller.throttle_x,'');
+
+
     end
     
         throttle_filtval = 1;
@@ -17,4 +31,4 @@ if exist('emb_controller','var') && ~isempty(emb_controller.timestamp)
         legend('Front Left','Right Front','Right Rear','Left Rear','command');
         title('Motor Throttle Commands');
 
-    end
+end

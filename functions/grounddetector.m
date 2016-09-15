@@ -10,12 +10,20 @@ throttle = emb_command.throttle;
 ttime = [0:1/100:(length(throttle)-1)/100]';
 velocity = emb_state.velocity_z;
 vtime = [0:1/100:(length(velocity)-1)/100]';
-
 accel = movingmean(accel,4);
+
 if exist('movvar') == 5
     gyro = movvar(gyro,10,1);
+    posvar = movvar(emb_state.translation_z,100,1);
+    ptime = [0:1/100:(length(posvar)-1)/100]';
+% elseif exist('var') == 2
+%     gyro = var(gyro);
+%     posvar = var(emb_state.translation_z);
+%     ptime = [0:1/100:(length(posvar)-1)/100]';
 else
     gyro = movingmean(gyro,5);
+    posvar = movingmean(emb_state.translation_z,100,1);
+    ptime = [0:1/100:(length(posvar)-1)/100]';
 end
 
 vector_lengths = cellfun(@(x) length(x),{accel gyro throttle velocity});
@@ -27,12 +35,15 @@ switch min(vector_lengths)
         [gtime,gyro] = interpOp(gtime,gyro,atime,accel,'');
         [ttime,throttle] = interpOp(ttime,throttle,atime,accel,'');
         [vtime,velocity] = interpOp(vtime,velocity,atime,accel,'');
+        [ptime,posvar] = interpOp(ptime,posvar,atime,accel,'');
+        
         
     case vector_lengths(2)
         c = 2;
         [atime,accel] = interpOp(atime,accel,gtime,gyro,'');
         [ttime,throttle] = interpOp(ttime,throttle,gtime,gyro,'');
         [vtime,velocity] = interpOp(vtime,velocity,gtime,gyro,'');
+        [ptime,posvar] = interpOp(ptime,posvar,atime,accel,'');
         
     case vector_lengths(3)
         c = 3;
@@ -45,12 +56,13 @@ switch min(vector_lengths)
         [atime,accel] = interpOp(atime,accel,vtime,velocity,'');
         [gtime,gyro] = interpOp(gtime,gyro,vtime,velocity,'');
         [ttime,throttle] = interpOp(ttime,throttle,vtime,velocity,'');
+        [ptime,posvar] = interpOp(ptime,posvar,atime,accel,'');
 end
 
 %%%%%%%%%%
 %throttle/velocity detection
 gd = 0;
-for i = length(time)-100*100:length(time)
+for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(time == time(end))
     if abs(velocity(i)) < .2 && throttle(i) < .55
         gd(i) = time(i);
     else
@@ -58,11 +70,15 @@ for i = length(time)-100*100:length(time)
     end 
 end
 gd = gd(gd~=0);
-shutoff2 = gd(1); % 10 milisecond wait
+if ~isempty(gd)
+    shutoff2 = gd(1);
+else
+    shutoff2 = find(time(end));
+end
 %%%%%%%%%%
 %bump detector
 for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(time == time(end))
-    if gyro(i) > 1.3 && accel(i) < -1.3
+    if gyro(i) > 3 && accel(i) < -1.3
         bump(i) = time(i);
         
     else
@@ -70,13 +86,17 @@ for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(t
     end
 end
 bump = bump(bump~=0);
-bump = bump(end);
+if ~isempty(bump)
+    bump = bump(end);
+else
+    bump = [];
+end
 
 if exist('bump','var') && ~isempty(bump)
     bump_timer = bump;
     timer_end = bump_timer + 3;
     for i = find(time == bump_timer):find(time == timer_end)
-        if abs(velocity(i)) < .6 && throttle(i) < .66
+        if abs(velocity(i)) < .5 && throttle(i) < .62
             shutoff(i) = time(i);
         else
             shutoff(i) = 0;
@@ -99,10 +119,10 @@ end
 %%%%%%%%%%
     
     figure;
-    plot(atime,accel,gtime,gyro,ttime,throttle,vtime,velocity);
+    plot(atime,accel,gtime,gyro,ttime,throttle,vtime,velocity,ptime,posvar);
     grid on;
     xlabel('time (sec)');
-    legend('accel','gyro','throttle','velocity z','Location','best');
+    legend('accel','gyro','throttle','velocity z','position variance','Location','best');
     if exist('bump_timer','var')
         vline(bump_timer,'g','bump');
     end
