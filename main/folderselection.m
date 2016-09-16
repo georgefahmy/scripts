@@ -48,42 +48,46 @@ elseif ok
         %%%%%%%%%%
         
         %%%%%%%%%%
-        % Change this to isolate files to import.
-        %
-        % att_con_telem
-        % att_rate_con_telem
-        % baro
-        % command_interface_status
-        % con_con_config
-        % controller_watchdog_plan
-        % emb_command
-        % emb_controller
-        % emb_estimator
-        % emb_mgmt
-        % emb_sensor
-        % emb_state
-        % gps_state
-        % gps_ubx_nav_pvt
-        % gps_ubx_nav_svinfo
-        % high_controller_time_stats
-        % lidar
-        % mission_progress
-        % path_queue
-        % path_target
-        % pos_con_config
-        % pos_con_telemetry
-        % sensor_x86
-        % system_monitor
-        vars = ['emb_sensor.tsv|emb_mgmt.tsv'];
-        ind = ~cellfun(@isempty,regexp(files,vars));
-        files2 = files(ind);
-        %%%%%%%%%%
-       
-        %%%%%%%%%%
         % drone name identification
         temp0 = files{end-2};
         temp1 = regexp(temp0,'[.]');
         assignin('base','drone',temp0(1:temp1(1)-1))
+        %%%%%%%%%%
+        
+        %%%%%%%%%%
+        % Change this to isolate files to import.
+        %
+       options = {
+         'att_con_telem',...
+         'att_rate_con_telem',...
+         'baro',...
+         'command_interface_status',...
+         'con_con_config',...
+         'controller_watchdog_plan',...
+         'emb_command',...
+         'emb_controller',...
+         'emb_estimator',...
+         'emb_mgmt',...
+         'emb_sensor',...
+         'emb_state',...
+         'gps_state',...
+         'gps_ubx_nav_pvt',...
+         'gps_ubx_nav_svinfo',...
+         'high_controller_time_stats',...
+         'lidar',...
+         'mission_progress',...
+         'path_queue',...
+         'path_target',...
+         'pos_con_config',...
+         'pos_con_telemetry',...
+         'sensor_x86',...
+         'system_monitor',...
+         'system_monitor_process_stats'
+         }';
+        if ~exist('files2','var')
+            [selection2,ok] = listdlg('ListString',options,'SelectionMode','multiple','Name','Struct Plotter','PromptString','Select a struct');
+        end
+            files2 = files(selection2);
         %%%%%%%%%%
                   
         %%%%%%%%%%
@@ -113,3 +117,4 @@ elseif ok
 end
 
 structextractor;
+clear files2;
