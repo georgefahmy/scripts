@@ -1,7 +1,8 @@
-function grounddetector(emb_sensor,emb_command,emb_state)
 %% grounddetector
 % the ground detector function uses the 4 variables above to check to see
 % if the drone landed on the ground or not.
+
+
 accel = emb_sensor.accel_z;
 atime = [0:1/100:(length(accel)-1)/100]';
 gyro = sqrt(emb_sensor.gyro_x.^2 + emb_sensor.gyro_y.^2 + emb_sensor.gyro_z.^2);
@@ -63,13 +64,14 @@ end
 %throttle/velocity detection
 gd = 0;
 for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(time == time(end))
-    if abs(velocity(i)) < .2 && throttle(i) < .55
+    if abs(velocity(i)) < .2 && throttle(i) < .50
         gd(i) = time(i);
     else
         gd(i) = 0;
     end 
 end
 gd = gd(gd~=0);
+
 if ~isempty(gd)
     shutoff2 = gd(1);
 else
@@ -78,7 +80,7 @@ end
 %%%%%%%%%%
 %bump detector
 for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(time == time(end))
-    if gyro(i) > 3 && accel(i) < -1.3
+    if gyro(i) > 3
         bump(i) = time(i);
         
     else
@@ -87,16 +89,17 @@ for i = find(time == round(time(end)+(min(emb_state.translation_z)*1.1))):find(t
 end
 bump = bump(bump~=0);
 if ~isempty(bump)
-    bump = bump(end);
+    bump = bump(1);
 else
     bump = [];
 end
-
+%%%%%%%%%%
+%shutoff requirements
 if exist('bump','var') && ~isempty(bump)
     bump_timer = bump;
-    timer_end = bump_timer + 3;
+    timer_end = bump_timer + 1;
     for i = find(time == bump_timer):find(time == timer_end)
-        if abs(velocity(i)) < .5 && throttle(i) < .62
+        if throttle(i) < .62
             shutoff(i) = time(i);
         else
             shutoff(i) = 0;
@@ -104,8 +107,8 @@ if exist('bump','var') && ~isempty(bump)
     end
     
     shutoff = shutoff(shutoff~=0);
-    if ~isempty(shutoff)
-        shutoff = shutoff(1);
+    if ~isempty(shutoff)  
+        shutoff = shutoff(10);
     end
         
 end
@@ -128,4 +131,4 @@ end
     end
     vline([shutoff shutoff2],{'r','b'},{'shutoff','shutoff 2'});
     
-end
+    clear shutoff* bump* gd timer end *time accel gyro throttle velocity posvar
