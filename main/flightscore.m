@@ -1,7 +1,5 @@
-%%
-%function  flightscore(numb)
-    %numb = input('Enter flightscore param: ');
-        % Flight recv_timestamp Calculation
+%% Flightscore
+
 if ~exist('done','var')
     done = 0;
 end
@@ -100,6 +98,7 @@ end
         lim1 = numb(score.calculated_score == max(score.calculated_score));
         lim1 = lim1(1);
     end
+    done = 16;
 end        
 if done == 16    
     figure('Name','flightscore','WindowStyle','docked');
