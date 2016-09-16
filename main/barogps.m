@@ -76,7 +76,7 @@ if exist('baro','var')
     end
  %%   
     if 1
-    baro_dzdt = movingmean(diff(movingmean(-baro.altitude,30))*Fs,30);
+    baro_dzdt = movingmean(diff(movingmean(-baro.altitude,50))*Fs,50);
     gps_dzdt  = movingmean(diff(movingmean(gps_state.translation_z,5))*5,5);
     
     figure('Name','baro velocity','WindowStyle','docked')
