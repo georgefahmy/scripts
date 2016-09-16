@@ -88,6 +88,6 @@ close all;
     
 %% Grounddetector
 
-    grounddetector(emb_sensor,emb_command,emb_state);
+    grounddetector;
     
 
