@@ -32,6 +32,9 @@ raw = textscan(fid,[str '%[^\n\r]'],'Delimiter',',','Headerlines',3);
 for i = 1:length(header)
     data.(cell2mat(header(i))) = cell2mat(raw(i));
 end
-assignin('base',file,data);
+if ~isempty(regexp(file,'[.]','ONCE'))
+    filename = file(1:regexp(file,'[.]')-1);
+end
+assignin('base',filename,data);
 fprintf('loaded %s\n',file)
 
