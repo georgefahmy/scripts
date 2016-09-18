@@ -3,6 +3,26 @@
 if ~exist('done','var')
     done = 0;
 end
+
+if done == 16    
+    figure('Name','flightscore','WindowStyle','docked');
+    grid on;
+    hold on;
+    if poscon
+        plot(numb,score.pos_con_score);
+        plot(numb(1:end-1),movingmean(diff(score.pos_con_score')*1000,100));
+    else
+        plot(numb,score.calculated_score);
+        plot(numb(1:end-1),movingmean(diff(score.calculated_score')*1000,100));
+    end
+    %set(gca,'XTick',[0:dev:10*dev]);  
+    xlim([0 lim1]);
+    ylabel('percentage');
+    xlabel('path error');
+    legend('recorded errors','diff of error score');
+    %fprintf('flight score is %.3f\n',score.pos_con_score);
+end
+%%%%%%%%%%
 if done ~= 16
         start_timestamp = min(emb_state.recv_timestamp(emb_state.translation_z < min(emb_state.translation_z) + 1));
         end_timestamp = max(emb_state.recv_timestamp(emb_state.translation_z < min(emb_state.translation_z) + 6));
@@ -43,7 +63,7 @@ if done ~= 16
         %interpOp function used to correct timescale differences
         [timex_diff, x_diff] = interpOp(time1,plan_x,time2,act_x,'-');
         [timey_diff, y_diff] = interpOp(time1,plan_y,time2,act_y,'-');
-        [timey_diff, z_diff] = interpOp(time1,plan_z,time2,act_z,'-');
+        [~, z_diff] = interpOp(time1,plan_z,time2,act_z,'-');
 
         time_diff = (timex_diff + timey_diff)/2;
 
@@ -100,21 +120,3 @@ end
     end
     done = 16;
 end        
-if done == 16    
-    figure('Name','flightscore','WindowStyle','docked');
-    grid on;
-    hold on;
-    if poscon
-        plot(numb,score.pos_con_score);
-        plot(numb(1:end-1),movingmean(diff(score.pos_con_score')*1000,100));
-    else
-        plot(numb,score.calculated_score);
-        plot(numb(1:end-1),movingmean(diff(score.calculated_score')*1000,100));
-    end
-    %set(gca,'XTick',[0:dev:10*dev]);  
-    xlim([0 lim1]);
-    ylabel('percentage');
-    xlabel('meters off path');
-    legend('recorded telemetry errors','diff of error score');
-    %fprintf('flight score is %.3f\n',score.pos_con_score);
-end

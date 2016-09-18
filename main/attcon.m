@@ -54,7 +54,7 @@ xlabel('time (sec)');
 ylabel('Radians');
 plot(att_con_telem.recv_timestamp,(movingmean(att_con_telem.pid_telem_y_ref,att_con_telem_filter_val)));
 plot(att_con_telem.recv_timestamp,(movingmean(att_con_telem.pid_telem_y_meas,att_con_telem_filter_val)));
-plot(att_con_telem.recv_timestamp,(movingmean(att_con_telem.pid_telem_y_ref-att_con_telem.pid_telem_y_meas,att_con_telem_filter_val)));
+plot(att_con_telem.recv_timestamp,(movingmean(abs(att_con_telem.pid_telem_y_ref)-abs(att_con_telem.pid_telem_y_meas),att_con_telem_filter_val)));
 %plot(att_con_telem.recv_timestamp,rad2deg(movingmean(att_con_telem.pid_telem_y_output,att_con_telem_filter_val)));
 legend('reference','measured','error')%,'output (deg/s)');
 end

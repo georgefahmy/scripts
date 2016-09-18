@@ -46,22 +46,19 @@ if exist ('meta','var') && isfield(meta,'poly') && isfield(meta,'home')
     height = max(-emb_state.translation_z);  
 end
 %%%%%%%%%
- if exist('emb_controller','var')
+ if exist('emb_controller','var') 
     emb_controller.leftyawmean = mean((emb_controller.throttle_w+emb_controller.throttle_y)./2);
     emb_controller.rightyawmean = mean((emb_controller.throttle_x+emb_controller.throttle_z)./2);
     emb_controller.frontmean = mean((emb_controller.throttle_w+emb_controller.throttle_x)./2);
     emb_controller.backmean = mean((emb_controller.throttle_y+emb_controller.throttle_z)./2);
     
     emb_controller.diff = (emb_controller.rightyawmean-emb_controller.leftyawmean)*4-.01;
-    %positive is left bias, negative is right bias.
+    %positive is right bias, negative is left bias.
 
-    emb_controller.meanthrottle = (emb_controller.throttle_w + emb_controller.throttle_x +...
-                                   emb_controller.throttle_y + emb_controller.throttle_z )/4;
- end
+    end
 %%%%%%%%%
  if exist('pos_con_telemetry','var') && exist('emb_state','var') && exist('emb_command','var') && exist('path_target','var')
-   flightscore;
-    % flight_score = flightscore(emb_state,emb_command,pos_con_telemetry,path_target);
+     flightscore;
  end
 %%%%%%%%%
  if exist('emb_mgmt','var') && length(emb_mgmt.bms_voltage) == length(emb_mgmt.bms_current)
