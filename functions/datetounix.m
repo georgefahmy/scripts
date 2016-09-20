@@ -1,7 +1,7 @@
-function unix = datetounix(mm,dd,yyyy)
+function unix = datetounix(yyyy,mm,dd,hr,min,sec)
 
-date = datetime(yyyy,mm,dd);
+date = datetime(yyyy,mm,dd,hr,min,sec);
 
-unix = int32(floor(posixtime(date)))+28800;
-%takes the date and adds the 8 hour offset (in seconds) to ZULU time
+unix = int32(floor(posixtime(date)))+28800-3600;
+%takes the date and adds the 7 hour offset (in seconds) to ZULU time
 end
