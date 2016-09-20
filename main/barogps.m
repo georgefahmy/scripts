@@ -68,7 +68,10 @@ if exist('baro','var')
     plot(gps_state.recv_timestamp,-gps_state.translation_z,'DisplayName','gps state z');
 %     plot(emb_state.recv_timestamp,-emb_state.translation_z),'DisplayName','emb state z';
     if exist('sensor_x86','var') && max(abs(sensor_x86.pos_z)) < 300
-    plot(sensor_x86.recv_timestamp,-sensor_x86.pos_z,'DisplayName','x86 pos z');
+        plot(sensor_x86.recv_timestamp,-sensor_x86.pos_z,'DisplayName','x86 pos z');
+    end
+    if exist('gps_sbf_state','var')
+        plot(gps_sbf_state.recv_timestamp,-gps_sbf_state.translation_z,'DisplayName','Precision gps');
     end
     legend('-DynamicLegend','Location','best');
     grid on;
