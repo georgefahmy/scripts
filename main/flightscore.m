@@ -27,12 +27,7 @@ if done ~= 16
         start_timestamp = min(emb_state.recv_timestamp(emb_state.translation_z < min(emb_state.translation_z) + 1));
         end_timestamp = max(emb_state.recv_timestamp(emb_state.translation_z < min(emb_state.translation_z) + 6));
         flight_time = (end_timestamp-start_timestamp); %flight recv_timestamp in minutes
-    if exist('emb_command','var') && exist('emb_state','var')
-        takeoff_timestamp = min(emb_state.recv_timestamp(emb_command.throttle > 0));
-        landing_timestamp = max(emb_state.recv_timestamp(emb_command.throttle > 0));
-
-        totaltime = landing_timestamp;
-    end    
+       
         % Distance Calculation
         if exist('path_target','var')
         plan_x = path_target.position_x;
