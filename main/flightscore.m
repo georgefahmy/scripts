@@ -16,7 +16,7 @@ if done == 16
         plot(numb(1:end-1),movingmean(diff(score.calculated_score')*1000,100));
     end
     %set(gca,'XTick',[0:dev:10*dev]);  
-    xlim([0 lim1]);
+    xlim([0 10]);
     ylabel('percentage');
     xlabel('path error');
     legend('recorded errors','diff of error score');

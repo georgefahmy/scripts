@@ -91,6 +91,9 @@ if exist('baro','var')
     plot(baro.recv_timestamp(1:end-1),baro_dzdt,'DisplayName','baro velocity');
     plot(gps_state.recv_timestamp,gps_state.velocity_z,'DisplayName','gps velocity');
     plot(gps_state.recv_timestamp(1:end-1),gps_dzdt,'DisplayName','gps dzdt');
+    if exist('gps_sbf_state','var')
+        plot(gps_sbf_state.recv_timestamp,gps_sbf_state.velocity_z,'DisplayName','precision gps')
+    end
     legend('-DynamicLegend','Location','Best')
     end
 end

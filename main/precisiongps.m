@@ -8,11 +8,11 @@ hold on;
         
 
 if exist('gps_sbf_state','var')
-    plot(path_target.recv_timestamp,path_target.position_x);
-    plot(gps_state.recv_timestamp,gps_state.translation_x);
-    plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_x);
-    plot(prec_time_x,abs(prec_error_x));
-    legend('target position','ublox gps','precision gps','precision vs non-precision');
+%     plot(path_target.recv_timestamp,path_target.position_x,'DisplayName','target position');
+%     plot(gps_state.recv_timestamp,gps_state.translation_x,'DisplayName','ublox gps');
+%     plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_x,'DisplayName','precision gps');
+    plot(prec_time_x,abs(prec_error_x),'DisplayName','precision vs non-precision');
+    legend('-DynamicLegend','Location','best');
 end
   
 grid on;
@@ -29,11 +29,11 @@ hold on;
         
 
 if exist('gps_sbf_state','var')
-    plot(path_target.recv_timestamp,path_target.position_y);
-    plot(gps_state.recv_timestamp,gps_state.translation_y);
-    plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_y);
-    plot(prec_time_y,abs(prec_error_y));
-    legend('target position','ublox gps','precision gps','precision vs non-precision');
+%     plot(path_target.recv_timestamp,path_target.position_y,'DisplayName','target position');
+%     plot(gps_state.recv_timestamp,gps_state.translation_y,'DisplayName','ublox gps');
+%     plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_y,'DisplayName','precision gps');
+    plot(prec_time_y,abs(prec_error_y),'DisplayName','precision vs non-precision');
+    legend('-DynamicLegend','Location','best');
 end
   
 grid on;
@@ -42,7 +42,7 @@ ylabel('position y');
 
 % Translation z
 
-precision_z = figure('Name','precision_y','WindowStyle','docked');
+precision_z = figure('Name','precision_z','WindowStyle','docked');
 hold on;
 
 [prec_time_z, prec_error_z] = interpOp(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_z,...
@@ -50,11 +50,11 @@ hold on;
         
 
 if exist('gps_sbf_state','var')
-    plot(path_target.recv_timestamp,path_target.position_z);
-    plot(gps_state.recv_timestamp,gps_state.translation_z);
-    plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_z);
-    plot(prec_time_z,abs(prec_error_z));
-    legend('target position','ublox gps','precision gps','precision vs non-precision');
+%     plot(path_target.recv_timestamp,path_target.position_z,'DisplayName','target position');
+%     plot(gps_state.recv_timestamp,gps_state.translation_z,'DisplayName','ublox gps');
+%     plot(gps_sbf_state.recv_timestamp,gps_sbf_state.translation_z,'DisplayName','precision gps');
+    plot(prec_time_z,abs(prec_error_z),'DisplayName','precision vs non-precision');
+    legend('-DynamicLegend','Location','best');
 end
   
 grid on;

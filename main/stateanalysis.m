@@ -35,15 +35,10 @@ if exist('path_target','var')
     path_target.velocity = sqrt(path_target.velocity_x.^2 +path_target.velocity_y.^2+path_target.velocity_z.^2);
 end
 %%%%%%%%%
-if exist ('meta','var') && isfield(meta,'poly') && isfield(meta,'home')
-    deg = mean(meta.poly(:,2));
-    lat = deg*pi/180;
-
-    area = polyarea(((meta.poly(:,1)-meta.home(:,1))*111120*cos(lat)),(meta.poly(:,2)-meta.home(:,2))*111120);% square meters
-    flightdata.area = area*0.0002471054; %Acres  
-
-    flightarea = polyarea(emb_state.translation_x(2:end),emb_state.translation_y(2:end))*0.0002471054*2.75; %acres
-    height = max(-emb_state.translation_z);  
+if exist('poly2','var') && exist('emb_state','var')
+    area = polyarea(poly2(:,1)*111319.458*(cosd(meta.home(2))),...
+             poly2(:,2)*111319.458);% square meters
+    flightdata.area = area*0.0002471054; %Acres   
 end
 %%%%%%%%%
  if exist('emb_controller','var') 
@@ -69,3 +64,10 @@ if exist('emb_state','var') && emb_state.recv_timestamp(1) ~= emb_state.timestam
     emb_state.time_diff = emb_state.timestamp(1) - emb_state.recv_timestamp(1);
 end
 %%%%%%%%%
+if exist('meta','var') && exist('gps_event','var')
+   gps_event.translation_x2 = gps_event.translation_x - meta.home(1);
+   gps_event.translation_x2 = gps_event.translation_x2 * 111319.458*(cosd(meta.home(2)));
+   
+   gps_event.translation_y2 = gps_event.translation_y - meta.home(2);
+   gps_event.translation_y2 = gps_event.translation_y2 *111319.458;
+end
