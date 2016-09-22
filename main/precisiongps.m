@@ -60,3 +60,21 @@ end
 grid on;
 xlabel('time (sec)');
 ylabel('position z');
+
+%%
+
+path3d = figure('Name','3d_precision_gps','WindowStyle','docked');
+hold on;        
+
+plot3(gps_state.translation_y,...
+      gps_state.translation_x,...
+      -gps_state.translation_z);
+  
+plot3(gps_sbf_state.translation_y,...
+      gps_sbf_state.translation_x,...
+      -gps_sbf_state.translation_z);
+
+grid on;
+xlabel('translation y');
+ylabel('translation x');
+zlabel('altitude');
