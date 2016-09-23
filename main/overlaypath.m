@@ -16,8 +16,8 @@ if exist('high_controller_diag_plan','var') && exist('emb_state','var') || exist
              poly2(:,2)*111319.458);
         plot(0,0,'o');
         if exist('gps_event','var')
-            scatter(gps_event.translation_x2,...
-                    gps_event.translation_y2);
+            scatter(gps_event.translation_y2,...
+                    gps_event.translation_x2);
         end
         hold off;
         title('path target Capture Area Overlay');
@@ -42,8 +42,8 @@ if exist('high_controller_diag_plan','var') && exist('emb_state','var') || exist
              -emb_state.translation_z(1:50:end));
         
         if exist('gps_event','var')
-            scatter3(gps_event.translation_x2,...
-                     gps_event.translation_y2,...
+            scatter3(gps_event.translation_y2,...
+                     gps_event.translation_x2,...
                      gps_event.translation_z-meta.act_alt);
         end
         shading interp;camlight;axis tight;

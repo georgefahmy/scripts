@@ -52,9 +52,9 @@ if exist('baro','var')
         z_alt = (-R*T0/g)*log(p/p0); % i like this equation
     %%%%%%%%%%%%%
     
-    baro_altitude = movingmean(baro.altitude,1)-meta.z_alt;
-    baro_altitude2 = movingmean(baro.altitude2,1)-meta.z_alt;
-    no_temp_alt = movingmean(z_alt,1)-meta.z_alt; % this is my favorite
+    baro_altitude = movingmean(baro.altitude,1);%-meta.z_alt;
+    baro_altitude2 = movingmean(baro.altitude2,1);%-meta.z_alt;
+    no_temp_alt = movingmean(z_alt,1);%-meta.z_alt; % this is my favorite
     
         
     baro_plot = figure('Name','baro vs gps state','WindowStyle','docked');

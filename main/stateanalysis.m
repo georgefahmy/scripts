@@ -65,9 +65,9 @@ if exist('emb_state','var') && emb_state.recv_timestamp(1) ~= emb_state.timestam
 end
 %%%%%%%%%
 if exist('meta','var') && exist('gps_event','var')
-   gps_event.translation_x2 = gps_event.translation_x - meta.home(1);
-   gps_event.translation_x2 = gps_event.translation_x2 * 111319.458*(cosd(meta.home(2)));
+   gps_event.translation_x2 = gps_event.translation_x - meta.home(2);
+   gps_event.translation_x2 = gps_event.translation_x2 * 111319.458;
    
-   gps_event.translation_y2 = gps_event.translation_y - meta.home(2);
-   gps_event.translation_y2 = gps_event.translation_y2 *111319.458;
+   gps_event.translation_y2 = gps_event.translation_y - meta.home(1);
+   gps_event.translation_y2 = gps_event.translation_y2 *111319.458*(cosd(meta.home(2)));
 end
