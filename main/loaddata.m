@@ -37,6 +37,8 @@ elseif length(pathname(temp(end)+1:end)) == 5
     clear temp;
 else
     flightid = '';
+    assignin('base','flightid',flightid);
+    clear temp;
 end
 filestruct = dir(pathname); 
 files = {'Names'};
@@ -141,7 +143,7 @@ end
 
 fprintf('File Import Complete\n\n');
 
-fprintf('Flight id: %s\n',flightid);
+
 %unixtodate(flightid);
 
 clear variable temp* file* i j ind isresults isworkspace theworkspace result*;

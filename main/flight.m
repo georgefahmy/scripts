@@ -20,7 +20,14 @@ end
 if exist('meta','var') && length(meta) >= 20
     meta = meta_data_analysis(meta);
 end
-if strcmp(flightid(end-2:end),'fly')
+if exist('meta','var') && isfield(meta,'flightid')
+    flightid = str2mat(meta.flightid);
+    fprintf('Flight id: %s\n',flightid);
+end
+if isempty(flightid)
+    fprintf('flight id is empty\n')
+    flightid = 'empty';
+elseif strcmp(flightid(end-2:end),'fly')
     
     movefile(pathname,[startdir meta.flightid]);
     meta.fly_id = flightid(1:end-4);
