@@ -4,6 +4,7 @@ fid = fopen(file);
 
 %isolates the headerline
 headerline = fgetl(fid);
+
 %replaces the  '.' with a '_' so it can be used as a variable
 headerline = regexprep(headerline,'[.]','_');
 %below changes the [0] to a _r_ so it can be used as a variable name
@@ -17,6 +18,7 @@ headerline = regexprep(headerline,'2','y'); %Yaw
 %stores the headerline info in a cell from a tab delimited line
 header = strsplit(headerline,'\t')';
 header = header(1:end-1);
+delimiter = '\t';
 
 if isempty(header)
     header = {'rawdata'};
@@ -30,11 +32,11 @@ else
    temp = 1;
 end
 
-raw = textscan(fid,[str '%[^\n\r]'],'HeaderLines',1,'Delimiter','\t');
+raw = textscan(fid,[str '%[^\n\r]'],'HeaderLines',1,'Delimiter',delimiter);
 
 for i = 1:length(header)
-   
-       data.(cell2mat(header(i))) = cell2mat(raw(i));
+  
+    data.(cell2mat(header(i))) = cell2mat(raw(i));
   
    if ~isempty(regexp(header{i,1},'recv_timestamp','ONCE')) && ~isempty(data.(cell2mat(header(i))))
        data.(cell2mat(header(i))) = data.(cell2mat(header(i))) - data.(cell2mat(header(i)))(1);

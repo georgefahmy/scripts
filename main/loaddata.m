@@ -132,7 +132,12 @@ for i = 1:length(files)
         assignin('base',variable,importdata(file));
         fprintf('Loaded %s\n',variable);
         loaded_vars{i,1} = variable;
-    else
+    elseif length(temp2) == 1 && temp2 == 8
+        variable = 'geotags'; 
+        assignin('base',variable,importgeotags(file));
+        fprintf('Loaded %s\n',variable);
+        loaded_vars{i,1} = variable;
+    elseif length(temp2) == 1 && temp2 == 5
         variable = 'meta'; 
         assignin('base',variable,importmeta(file));
         fprintf('Loaded %s\n',variable);
