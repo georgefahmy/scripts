@@ -71,3 +71,7 @@ if exist('meta','var') && exist('gps_event','var')
    gps_event.translation_y2 = gps_event.translation_y - meta.home(1);
    gps_event.translation_y2 = gps_event.translation_y2 *111319.458*(cosd(meta.home(2)));
 end
+if exist('geotags','var') && exist('meta','var')
+    geotags.translation_x = (geotags.lat - meta.home(2))*111319.458;
+    geotags.translation_y = (geotags.long - meta.home(1))*111319.458*(cosd(meta.home(2)));
+end

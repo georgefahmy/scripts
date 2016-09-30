@@ -22,6 +22,10 @@ if exist('high_controller_diag_plan','var') && exist('emb_state','var') || exist
         scatter(gps_event.translation_y2,...
                 gps_event.translation_x2,'DisplayName','image events');
     end
+    if exist('geotags','var')
+        scatter(geotags.translation_y,...
+                geotags.translation_x,'DisplayName','geotags');
+    end
     hold off;
     title('path target Capture Area Overlay');
     xlabel('longitude, y');
@@ -48,6 +52,11 @@ if exist('high_controller_diag_plan','var') && exist('emb_state','var') || exist
         scatter3(gps_event.translation_y2,...
                  gps_event.translation_x2,...
                  gps_event.translation_z-meta.act_alt,'DisplayName','image events');
+    end
+    if exist('geotags','var')
+        scatter3(geotags.translation_y,...
+                geotags.translation_x,...
+                geotags.alt - meta.act_alt,'*','DisplayName','geotags');
     end
     shading interp;camlight;axis tight;
     %first view
