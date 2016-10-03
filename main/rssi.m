@@ -15,7 +15,7 @@ if (exist('command_interface_status','var') && ~isnan(mean(command_interface_sta
         
         %3d rssi plot
         rssi3d = figure('Name','rssi3d','WindowStyle','docked');
-        plot4(y(1:25:end),x(1:25:end),z(1:25:end),w(1:25:end),'o');
+        plot4(y(1:50:end),x(1:50:end),z(1:50:end),w(1:50:end),'o');
         grid on;
         title('RSSI vs Position');
         xlabel('y (m)');
@@ -24,8 +24,8 @@ if (exist('command_interface_status','var') && ~isnan(mean(command_interface_sta
         colormap('jet');
         h = colorbar('ylim',[-120 -40],'Location','eastoutside');
         caxis([-120 -40]);
-        set(h,'YTick',-120:10: -40);
         daspect([1 1 1]);
+        set(h,'YTick',-120:10: -40);
         set(rssi3d,'Clipping','off');
     
         %rssi vs time plot

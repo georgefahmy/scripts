@@ -2,6 +2,7 @@
 positionx = figure('Name','position_x','WindowStyle','docked');
 hold on;
 
+
 if exist('pos_con_telemetry','var')
     pos_x_error = pos_con_telemetry.pos_x_con_telem_ref - pos_con_telemetry.pos_x_con_telem_meas;
     plot(pos_con_telemetry.recv_timestamp,pos_con_telemetry.pos_x_con_telem_ref);

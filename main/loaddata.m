@@ -16,12 +16,19 @@ if exist('folder','var')
     assignin('base','pathname',pathname);
 else 
     if ~exist('pathname','var')
-        pathname = uigetdir('Select Folder for Data');
+        
+        pathname = uigetdir(startdir,'Select Folder for Data');
         assignin('base','pathname',pathname);
         if pathname == 0
             close all;
             clc;
             fprintf('User selected Cancel\n');
+            return
+        end
+        if pathname == '0'
+            close all;
+            clc;
+            fprintf('User selected Cancel\n')
             return
         end
     end

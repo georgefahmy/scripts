@@ -15,6 +15,9 @@ loaddata;
 if ~pathname
     return
 end
+if pathname == '0'
+    return
+end
 
 %% initial analyis
 if exist('meta','var') && length(meta) >= 20
@@ -68,5 +71,5 @@ elseif loaded_workspace && ~exist('desc','var')
 end
 
 clear data flight_* ;
-save ([pathname '/_workspace']);
+save ([pathname '/_workspace.mat']);
 done = fprintf('Saved workspace\n');
