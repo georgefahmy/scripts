@@ -20,13 +20,12 @@ end
 if exist('meta','var') && length(meta) >= 20
     meta = meta_data_analysis(meta);
 end
-if exist('meta','var') && isfield(meta,'flightid')
-    flightid = str2mat(meta.flightid);
-    fprintf('Flight id: %s\n',flightid);
-end
+
 if isempty(flightid)
+    
     fprintf('flight id is empty\n')
     flightid = 'empty';
+    
 elseif strcmp(flightid(end-2:end),'fly')
     
     movefile(pathname,[startdir meta.flightid]);
@@ -34,8 +33,13 @@ elseif strcmp(flightid(end-2:end),'fly')
     flightid = meta.flightid;
     pathname = [startdir meta.flightid];
     fprintf('Flightid determined from meta data: %s\n',flightid);
-end
     
+elseif exist('meta','var') && isfield(meta,'flightid')
+    
+    flightid = str2mat(meta.flightid);
+    fprintf('Flight id: %s\n',flightid);
+end
+
 if exist('meta','var') && isfield(meta,'poly') && isfield(meta,'home')
     poly2 = meta.poly(:,1) - meta.home(1);
     poly2(:,end+1) = meta.poly(:,2) - meta.home(2);

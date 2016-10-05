@@ -20,7 +20,7 @@ function mission_summary = importsummary(file)
     ind9 = ~cellfun(@isempty,regexp(mission_summary_file,'drone_height'));
     ind10 = ~cellfun(@isempty,regexp(mission_summary_file,'imaging_height'));
     ind11 = ~cellfun(@isempty,regexp(mission_summary_file,'user_email'));
-    ind12 = ~cellfun(@isempty,regexp(mission_summary_file,'mission_success'));
+    
     
 %%
 
@@ -39,7 +39,6 @@ mission_summary.sw_version = mission_summary_file{ind8};  %drone_software_versio
 mission_summary.fly_height = mission_summary_file{ind9};            %drone_height
 mission_summary.imaging_height = mission_summary_file{ind10};         %imaging_height
 mission_summary.user_email = mission_summary_file{ind11};             %user_email
-mission_summary.mission_success = mission_summary_file{ind12};        %mission_success
 
 %disp(mission_summary);
 

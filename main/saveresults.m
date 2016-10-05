@@ -87,26 +87,27 @@ end
 fid2 = fopen(results3,'wt+');
     
 formatspec = [
-                '%s \n'... %drone
-                '%s \n\n'... %flightdate
-                '%s \n\n'... %description of flight
-                'Flight Score: %.2f \n\n'... %calculated flight score
-                'Fly Id (if known): %s \n' ... %if downloaded from fly this will be saved
-                'Flight ID: %s \n'... %flightid
-                'Total time: %.2f minutes \n' ... %total time
-                'Capture Area: %.2f Acres \n' ... %capture area
-                'Starting Voltage: %.2f volts \n' ... %starting voltage
-                'Ending Voltage: %.2f volts \n' ... %ending voltage
-                'Average Current: %.2f amps \n' ... %average current
-                'Average RSSI: %.2f \n' ... %average rssi
-                'Max Distance from home: %.0f meters\n' ... %max distance
-                'Planned Distance: %.2f meters\n'... %total distance
-                'Distance Traveled: %.1f meters\n' ... %distance the drone traveled
-                'Drone Height: %.0f Meters, %.0f Feet\n' ... %drone height
+        '%s \n'... %drone
+        '%s \n\n'... %flightdate
+        '%s \n\n'... %description of flight
+        'Flight Score: %.2f \n\n'... %calculated flight score
+        'Fly Id (if known): %s \n' ... %if downloaded from fly this will be saved
+        'Flight ID: %s \n'... %flightid
+        'Total time: %.2f minutes \n' ... %total time
+        'Capture Area: %.2f Acres \n' ... %capture area
+        'Starting Voltage: %.2f volts \n' ... %starting voltage
+        'Ending Voltage: %.2f volts \n' ... %ending voltage
+        'Average Current: %.2f amps \n' ... %average current
+        'Average RSSI: %.2f \n' ... %average rssi
+        'Max Distance from home: %.0f meters\n' ... %max distance
+        'Planned Distance: %.2f meters\n'... %total distance
+        'Distance Traveled: %.1f meters\n' ... %distance the drone traveled
+        'Drone Height: %.0f Meters, %.0f Feet\n' ... %drone height
              ];
 
-         
-fprintf(fid2,formatspec,...%this fprintf's the fid and the formatspec above
+
+%this fprintf's the fid and the formatspec above         
+fprintf(fid2,formatspec,...
 drone,...
 flightdata.flightdate,...
 desc{1},...
@@ -130,5 +131,9 @@ fprintf(fid2,'\nsw version: %s\n',meta.swversion);
     
     fclose(fid2);
     fprintf('Saved results file\n');
+    if exist('meta','var') && isfield(meta,'fly_id')
+        fid = fopen([pathname '/' 'fly_' meta.fly_id],'wt+');
+        fclose(fid);
+    end
           
 end
