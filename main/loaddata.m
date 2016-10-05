@@ -47,7 +47,7 @@ for i = 1:length(filestruct)
     files{j,1} = char(strcat((filestruct(i).name)));
     j = j+1;
 end
-ind = cellfun(@isempty,regexp(files,'^\.|kdz$|map|complete|raw|uploaded|summary|_results.txt'));
+ind = cellfun(@isempty,regexp(files,'^\.|kdz$|map|complete|raw|uploaded|_results.txt'));
 files = files(ind);
 isresults = ~cellfun(@isempty,regexp(files,'_results'));
 isresults2 = ~cellfun(@isempty,regexp(files,'_workspace'));
@@ -140,6 +140,11 @@ for i = 1:length(files)
     elseif length(temp2) == 1 && temp2 == 5
         variable = 'meta'; 
         assignin('base',variable,importmeta(file));
+        fprintf('Loaded %s\n',variable);
+        loaded_vars{i,1} = variable;
+    elseif length(temp2) == 1 && temp2 == 16
+        variable = 'mission_summary'; 
+        assignin('base',variable,importsummary(file));
         fprintf('Loaded %s\n',variable);
         loaded_vars{i,1} = variable;
     end
