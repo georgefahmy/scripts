@@ -1,12 +1,9 @@
 %% Save _results file
 
-if length(fieldnames(flightdata)) > 5
-flightdata.flightid = str2double(flightid);
-%flightdata.flight_score = 100 - flightdata.path_error;
-end
-
-if 1
-
+    if length(fieldnames(flightdata)) > 5
+    flightdata.flightid = str2double(flightid);
+    %flightdata.flight_score = 100 - flightdata.path_error;
+    end
     %defining new data values for flightdata
     if ~exist('flightdate','var')
         unixtodate(flightid);
@@ -125,15 +122,23 @@ flightdata.plan_distance,...
 flightdata.total_distance,...
 flightdata.ave_height,...
 flightdata.ave_height*3.28084);
-
 fprintf(fid2,'\nsw version: %s\n',meta.swversion);
- 
-    
+
     fclose(fid2);
     fprintf('Saved results file\n');
+
     if exist('meta','var') && isfield(meta,'fly_id')
         fid = fopen([pathname '/' 'fly_' meta.fly_id],'wt+');
         fclose(fid);
     end
-          
+    %write summary file
+if exist('mission_summary','var');
+    fid = fopen([pathname '/' '_summary.txt'],'wt+');
+    temp = struct2cell(mission_summary);
+    for i = 1:length(temp)
+        fprintf(fid,'%s\n',temp{i});
+    end
+    clear temp;
+    fclose(fid);
+    fprintf('Saved summary file\n')
 end
