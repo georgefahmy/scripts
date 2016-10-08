@@ -15,7 +15,7 @@ if (exist('command_interface_status','var') && ~isnan(mean(command_interface_sta
         
         %3d rssi plot
         rssi3d = figure('Name','rssi3d','WindowStyle','docked');
-        plot4(y(1:25:end),x(1:25:end),z(1:25:end),c(1:25:end),-120,-40,'o');
+        plot4(y(1:50:end),x(1:50:end),z(1:50:end),c(1:50:end),-120,-40,'o');
         grid on;
         title('RSSI vs Position');
         xlabel('y (m)');
