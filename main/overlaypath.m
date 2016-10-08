@@ -9,14 +9,14 @@ if exist('high_controller_diag_plan','var') && exist('emb_state','var') || exist
              high_controller_diag_plan.plan_translation_x(1:end),'DisplayName','path target');
     end
     hold on;
+    grid on;
     plot(emb_state.translation_y(1:end),...
          emb_state.translation_x(1:end),'DisplayName','emb state');
     plot(gps_state.translation_y,...
          gps_state.translation_x,'DisplayName','gps state');
-    grid on;
-    legend('-DynamicLegend','Location','best');
     plot(poly2(:,1)*111319.458*(cosd(meta.home(2))),...
-         poly2(:,2)*111319.458);
+         poly2(:,2)*111319.458,'DisplayName','capture area');
+    legend('-DynamicLegend','Location','best');
     plot(0,0,'o');
     if exist('gps_event','var')
         scatter(gps_event.translation_y2,...
