@@ -5,17 +5,17 @@ if (exist('command_interface_status','var') && ~isnan(mean(command_interface_sta
         x = emb_state.translation_x(1:end-1);
         y = emb_state.translation_y(1:end-1);
         z = -emb_state.translation_z(1:end-1);
-        w = -signal(1:end-1);
+        c = -signal(1:end-1);
         
-        for i = 1:length(w)
-            if w(i) > -40 
-                w(i) = -40;
+        for i = 1:length(c)
+            if c(i) > -40 
+                c(i) = -40;
             end
         end
         
         %3d rssi plot
         rssi3d = figure('Name','rssi3d','WindowStyle','docked');
-        plot4(y(1:25:end),x(1:25:end),z(1:25:end),w(1:25:end),'o');
+        plot4(y(1:25:end),x(1:25:end),z(1:25:end),c(1:25:end),-120,-40,'o');
         grid on;
         title('RSSI vs Position');
         xlabel('y (m)');

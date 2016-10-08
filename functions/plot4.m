@@ -1,4 +1,4 @@
-function varargout=plot4(x,y,z,c,varargin);
+function varargout=plot4(x,y,z,c,lim1,lim2,varargin);
 
 % PLOT4  Plot colored lines and points in 3-D space
 %  
@@ -40,7 +40,7 @@ c(idx) = min(c);
 
 % Interpolate colormap
 cmap=colormap('jet'); % get current colormap
-yy=linspace(-120,-40,size(cmap,1)); % Generate range of color indices that map to cmap
+yy=linspace(lim1,lim2,size(cmap,1)); % Generate range of color indices that map to cmap
 cm = interp1(yy,cmap,c,'linear')';
 
 % Plot data
