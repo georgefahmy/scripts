@@ -7,9 +7,17 @@ end
 
 raw_dist = lidar.raw_distance;
 pos_z = -emb_state.translation_z;
-
 sample_size = length(raw_dist);
+sample_size2 = length(pos_z);
 time = [1:1:sample_size];
+time2 = [1:1:sample_size2];
+
+if length(pos_z) > length(raw_dist)
+    [~, pos_z] = interpOp(time2,pos_z,time,raw_dist,'');
+end
+if length(pos_z) < length(raw_dist)
+    [~, pos_z] = interpOp(time2,pos_z,time,raw_dist,'');
+end
 
 flying = time(pos_z >= max(pos_z)-20);
 
