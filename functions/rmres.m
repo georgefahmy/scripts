@@ -23,10 +23,12 @@ function rmres(flightid)
         end
     end
     fprintf('Removed results folder from\n');
-    fprintf('%s\n\n',pathname);
-    if exist([pathname '/_results'])
+    fprintf('%s\n',pathname);
+    if exist([pathname '/_results.txt'],'file') == 2
         cd(pathname);
-        rmdir([pathname '/' '_results'],'s')
+        delete([pathname '/' '_results.txt'])
+        delete([pathname '/' '_summary.txt'])
+        delete([pathname '/' '_workspace.mat'])
         cd(startdir)
     else
         fprintf('Results folder does not exist\n\n')

@@ -31,8 +31,12 @@ mission_summary.flight_id = mission_summary.flight_id{1};
 mission_summary.drone_name = mission_summary_file(ind3);                    %drone_name
 mission_summary.drone_name = mission_summary.drone_name{1};
 mission_summary.duration = mission_summary_file{ind4};                      %duration
+if ind5 ~= 0
 mission_summary.flight_end_state = mission_summary_file{ind5};              %flight_end_state
+end
+if ind13 ~=0
 mission_summary.flight_end_reason = mission_summary_file{ind13};            %flight_end_reason
+end
 mission_summary.mission_name = mission_summary_file{ind6};                  %mission_name
 mission_summary.battery_info = ['battery_' mission_summary_file{ind7}];     %battery_info
 mission_summary.sw_version = mission_summary_file{ind8};                    %drone_software_version
