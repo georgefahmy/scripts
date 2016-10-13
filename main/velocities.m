@@ -1,43 +1,6 @@
 %% Velocity Plots
-
-if    ~dronetype
-    
-    % hamilton drone plots
-    velocityx = figure('Name','velx','WindowStyle','docked');
-    hold on;
-    grid on;
-    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_x);
-    plot(gps_state.recv_timestamp,gps_state.velocity_x);
-    plot(emb_state.recv_timestamp,emb_state.velocity_x);
-    xlabel('time (sec)');
-    ylabel('velocity (m/s)');
-    legend('planned velocity','gps state velocity','emb state velocity');
-    
-    velocityy = figure('Name','vely','WindowStyle','docked');
-    hold on;
-    grid on;
-    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_y);
-    plot(gps_state.recv_timestamp,gps_state.velocity_y);
-    plot(emb_state.recv_timestamp,emb_state.velocity_y);
-    xlabel('time (sec)');
-    ylabel('velocity (m/s)');
-    legend('planned velocity','gps state velocity','emb state velocity');
-    
-    velocityz = figure('Name','velz','WindowStyle','docked');
-    hold on;
-    grid on;
-    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_z);
-    plot(gps_state.recv_timestamp,gps_state.velocity_z);
-    plot(emb_state.recv_timestamp,emb_state.velocity_z);
-    xlabel('time (sec)');
-    ylabel('velocity (m/s)');
-    legend('planned velocity','gps state velocity','emb state velocity');
-
-
-else   
-% Velocity XYZ
-
 %%%%%%%%%%
+if exist('pos_con_telemetry','var')
     velocityx = figure('Name','velx','WindowStyle','docked');
     hold on;
     grid on;
@@ -51,8 +14,19 @@ else
     xlabel('time (sec)');
     ylabel('velocity (m/s)');
     legend('planned velocity','gps state velocity','emb state velocity','vel error','vel output');
-
+else ~dronetype
+    velocityx = figure('Name','velx','WindowStyle','docked');
+    hold on;
+    grid on;
+    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_x);
+    plot(gps_state.recv_timestamp,gps_state.velocity_x);
+    plot(emb_state.recv_timestamp,emb_state.velocity_x);
+    xlabel('time (sec)');
+    ylabel('velocity (m/s)');
+    legend('planned velocity','gps state velocity','emb state velocity');
+end
 %%%%%%%%%%
+if exist('pos_con_telemetry','var')
     velocityy = figure('Name','vely','WindowStyle','docked');
     hold on;
     grid on;
@@ -67,8 +41,19 @@ else
     xlabel('time (sec)');
     ylabel('velocity (m/s)');
     legend('planned velocity','gps state velocity','emb state velocity','vel error','vel output');
-   
-%%%%%%%%%%    
+else ~drontype
+    velocityy = figure('Name','vely','WindowStyle','docked');
+    hold on;
+    grid on;
+    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_y);
+    plot(gps_state.recv_timestamp,gps_state.velocity_y);
+    plot(emb_state.recv_timestamp,emb_state.velocity_y);
+    xlabel('time (sec)');
+    ylabel('velocity (m/s)');
+    legend('planned velocity','gps state velocity','emb state velocity');
+end   
+%%%%%%%%%% 
+if exist('pos_con_telemetry','var')
     velocityz = figure('Name','velz','WindowStyle','docked');
     hold on;
     grid on;
@@ -82,5 +67,15 @@ else
     xlabel('time (sec)');
     ylabel('velocity (m/s)');
     legend('planned velocity','gps state velocity','emb state velocity','vel error'); %,'vel output');
-
- end
+else ~drontype
+      velocityz = figure('Name','velz','WindowStyle','docked');
+    hold on;
+    grid on;
+    plot(high_controller_diag_plan.recv_timestamp,high_controller_diag_plan.plan_velocity_z);
+    plot(gps_state.recv_timestamp,gps_state.velocity_z);
+    plot(emb_state.recv_timestamp,emb_state.velocity_z);
+    xlabel('time (sec)');
+    ylabel('velocity (m/s)');
+    legend('planned velocity','gps state velocity','emb state velocity');
+end
+    

@@ -5,7 +5,7 @@ if ~exist('lidar','var')
     lidar = importdata(file);
 end
 
-raw_dist = lidar.raw_distance;
+raw_dist = lidar.filtered_distance;
 pos_z = -emb_state.translation_z;
 sample_size = length(raw_dist);
 sample_size2 = length(pos_z);
